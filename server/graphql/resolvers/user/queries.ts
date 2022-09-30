@@ -1,0 +1,18 @@
+import { prisma } from "../../../config/database/index";
+
+const userQueries = {
+  user: async (_: never, args: { id: string }) => {
+    const user = await prisma.user.findUnique({
+      where: {
+        id: parseInt(args.id),
+      },
+    });
+    return user;
+  },
+  users: async () => {
+    const users = await prisma.user.findMany();
+    return users;
+  },
+};
+
+export default userQueries;
