@@ -1,0 +1,25 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Post {
+  id        Int     @id @default(autoincrement())
+  name      String
+  length    Float
+  published Boolean
+
+  content    Audio? @relation("content")
+  reactions Audio[] @relation("reactions")
+
+  created_at DateTime @default(now())
+}
+
+model Audio {
+  id   Int   @id @default(autoincrement())
+  post_id Int @unique
+  post   Post @relation("content", fields: [post_id], references: [id])
+
+  reactions_id Int
+  reactions Post @relation("reactions", fields: [reactions_id], references: [id])
+}
