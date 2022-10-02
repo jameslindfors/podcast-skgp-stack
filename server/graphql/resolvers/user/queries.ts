@@ -1,7 +1,7 @@
 import { prisma } from "../../../config/database/index";
 
 const userQueries = {
-  user: async (_: never, args: { id: string }) => {
+  user: async (_: unknown, args: { id: string }) => {
     const user = await prisma.user.findUnique({
       where: {
         id: parseInt(args.id),

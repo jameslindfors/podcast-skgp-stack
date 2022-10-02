@@ -1,14 +1,18 @@
 type User implements Timestamps {
   id: ID
-  name: String
-  email: String!
+  username: String!
+  post_allowed: Boolean!
 
   # Interface required
-  createdAt: Date!
-  updatedAt: Date!
+  created_at: Date!
+  updated_at: Date!
 }
 
-input UserInput {
-  name: String
-  email: String!
+input CreateUserInput {
+  username: String!
+}
+
+input UpdateUserInput {
+  username: String
+  post_allowed: Boolean
 }

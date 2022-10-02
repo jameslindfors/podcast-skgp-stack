@@ -1,28 +1,41 @@
 import { prisma } from "../../../config/database/index";
 
 const userMutations = {
-  createUser: async (
-    _: never,
-    args: {
-      input: { name: string; email: string };
-    }
-  ) => {
-    const { name, email } = args.input;
-
+  createUser: async (_: unknown, args: { input: { username: string } }) => {
+    const { username } = args.input;
     const user = await prisma.user.create({
       data: {
-        name,
-        email,
+        username,
       },
     });
+
     return user;
   },
-  deleteUser: async (_: never, args: { id: string }) => {
-    const user = await prisma.user.delete({
+  updateUser: async (
+    _: unknown,
+    args: { id: string; input: { username: string; post_allowed: boolean } }
+  ) => {
+    const { id, input } = args;
+
+    const user = await prisma.user.update({
       where: {
-        id: parseInt(args.id),
+        id: parseInt(id),
+      },
+      data: {
+        ...input,
       },
     });
+
+    return user;
+  },
+  deleteUser: async (_: unknown, args: { id: string }) => {
+    const { id } = args;
+    const user = await prisma.user.delete({
+      where: {
+        id: parseInt(id),
+      },
+    });
+
     return user;
   },
 };
