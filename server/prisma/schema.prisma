@@ -63,8 +63,8 @@ model Audio {
   id           Int      @id @default(autoincrement())
   post_id      Int      @unique
   post         Post     @relation(name: "content", fields: [post_id], references: [id])
-  reactions_id Int
-  reactions    Post     @relation(name: "reactions", fields: [reactions_id], references: [id])
+  reactions_id Int?
+  reactions    Post?    @relation(name: "reactions", fields: [reactions_id], references: [id])
   alt          String
   path         String
   length       Float

@@ -6,8 +6,7 @@ datasource db {
 model Post {
   id        Int     @id @default(autoincrement())
   name      String
-  length    Float
-  published Boolean
+  published Boolean @default(false)
 
   content    Audio? @relation("content")
   reactions Audio[] @relation("reactions")
@@ -20,6 +19,6 @@ model Audio {
   post_id Int @unique
   post   Post @relation("content", fields: [post_id], references: [id])
 
-  reactions_id Int
-  reactions Post @relation("reactions", fields: [reactions_id], references: [id])
+  reactions_id Int?
+  reactions Post? @relation("reactions", fields: [reactions_id], references: [id])
 }
