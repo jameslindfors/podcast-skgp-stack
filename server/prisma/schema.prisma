@@ -23,8 +23,6 @@ generator dbml {
 
 model meta {
   id        Int      @id @default(autoincrement())
-  key       String   @unique
-  value     String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -40,15 +38,14 @@ model User {
 }
 
 model Post {
-  author     User     @relation(name: "PostToUser", fields: [author_id], references: [id])
-  author_id  Int      @unique
-  id         Int      @id @default(autoincrement())
-  name       String
-  length     Float
-  published  Boolean
-  content    Audio?   @relation(name: "content")
-  reactions  Audio[]  @relation(name: "reactions")
-  created_at DateTime @default(now())
+  author     User       @relation(name: "PostToUser", fields: [author_id], references: [id])
+  author_id  Int        @unique
+  id         Int        @id @default(autoincrement())
+  title      String
+  published  Boolean    @default(false)
+  content    Content?   @relation(name: "content")
+  reactions  Response[] @relation(name: "reactions")
+  created_at DateTime   @default(now())
 }
 
 model Image {
@@ -59,14 +56,22 @@ model Image {
   src     Bytes
 }
 
-model Audio {
-  id           Int      @id @default(autoincrement())
-  post_id      Int      @unique
+model Content {
+  content_id   Int      @id @default(autoincrement())
   post         Post     @relation(name: "content", fields: [post_id], references: [id])
-  reactions_id Int?
-  reactions    Post?    @relation(name: "reactions", fields: [reactions_id], references: [id])
+  post_id      Int      @unique
+  content_path String
   alt          String
-  path         String
-  length       Float
   created_at   DateTime @default(now())
+  updated_at   DateTime @updatedAt
+}
+
+model Response {
+  response_id   Int      @id @default(autoincrement())
+  post          Post     @relation(name: "reactions", fields: [post_id], references: [id])
+  post_id       Int
+  response_path String
+  alt           String
+  created_at    DateTime @default(now())
+  updated_at    DateTime @updatedAt
 }

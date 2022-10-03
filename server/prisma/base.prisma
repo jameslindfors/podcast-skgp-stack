@@ -21,9 +21,7 @@ datasource db {
 }
 
 model meta {
-    id        Int      @id @default(autoincrement())
-    key       String   @unique
-    value     String
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

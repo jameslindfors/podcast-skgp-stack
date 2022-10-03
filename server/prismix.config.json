@@ -4,9 +4,10 @@
       "input": [
         "./prisma/base.prisma",
         "./prisma/user.prisma",
-        "./prisma/post.prisma",
-        "./prisma/image.prisma",
-        "./prisma/audio.prisma"
+        "./prisma/entity_post.prisma",
+        "./prisma/entity_content.prisma",
+        "./prisma/entity_response.prisma",
+        "./prisma/image.prisma"
       ],
       "output": "./prisma/schema.prisma"
     }

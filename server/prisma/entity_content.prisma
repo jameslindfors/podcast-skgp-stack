@@ -1,0 +1,12 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Content {
+  content_id   Int      @id @default(autoincrement())
+  content_path String
+  alt          String
+  created_at   DateTime @default(now())
+  updated_at   DateTime @updatedAt
+}
