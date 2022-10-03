@@ -8,101 +8,61 @@ beforeEach(() => {
   ctx = mockCtx;
 });
 
-/* Image Model
-model Image {
-    id Int @id @default(autoincrement())
-    alt String
-    src Bytes
-}
-*/
-
-describe("Test Image DB Model", () => {
+describe("Test Image Prisma Model", () => {
   const src = Buffer.from(
     "R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7",
     "base64"
   );
 
+  const image = {
+    id: 1,
+    user_id: 1,
+    alt: "image" + Math.random(),
+    src,
+    created_at: new Date(),
+    updated_at: new Date(),
+  };
+
   test("Add entry to Image DB Model", async () => {
-    mockCtx.prisma.image.create.mockResolvedValueOnce({
-      id: 1,
-      user_id: 1,
-      alt: "test",
-      src: src,
-    });
+    mockCtx.prisma.image.create.mockResolvedValueOnce(image);
     const result = await ctx.prisma.image.create({
       data: {
-        alt: "test",
-        src: src,
-        user_id: 1,
+        user_id: image.user_id,
+        alt: image.alt,
+        src: image.src,
       },
     });
-    expect(result).toEqual({
-      id: 1,
-      alt: "test",
-      src: src,
-      user_id: 1,
-    });
+    expect(result).toEqual(image);
   });
   test("Get entry from Image DB Model", async () => {
-    mockCtx.prisma.image.findUnique.mockResolvedValueOnce({
-      id: 1,
-      user_id: 1,
-      alt: "test",
-      src: src,
-    });
+    mockCtx.prisma.image.findUnique.mockResolvedValueOnce(image);
     const result = await ctx.prisma.image.findUnique({
       where: {
-        id: 1,
+        user_id: image.user_id,
       },
     });
-    expect(result).toEqual({
-      id: 1,
-      alt: "test",
-      src: src,
-      user_id: 1,
-    });
+    expect(result).toEqual(image);
   });
   test("Update entry in Image DB Model", async () => {
-    mockCtx.prisma.image.update.mockResolvedValueOnce({
-      id: 1,
-      user_id: 1,
-      alt: "test2",
-      src: src,
-    });
+    mockCtx.prisma.image.update.mockResolvedValueOnce(image);
     const result = await ctx.prisma.image.update({
       where: {
-        id: 1,
+        user_id: image.user_id,
       },
       data: {
-        alt: "test2",
-        src: src,
-        user_id: 1,
+        alt: image.alt,
+        src: image.src,
       },
     });
-    expect(result).toEqual({
-      id: 1,
-      alt: "test2",
-      src: src,
-      user_id: 1,
-    });
+    expect(result).toEqual(image);
   });
   test("Delete entry from Image DB Model", async () => {
-    mockCtx.prisma.image.delete.mockResolvedValueOnce({
-      id: 1,
-      user_id: 1,
-      alt: "test",
-      src: src,
-    });
+    mockCtx.prisma.image.delete.mockResolvedValueOnce(image);
     const result = await ctx.prisma.image.delete({
       where: {
-        id: 1,
+        user_id: image.user_id,
       },
     });
-    expect(result).toEqual({
-      id: 1,
-      alt: "test",
-      src: src,
-      user_id: 1,
-    });
+    expect(result).toEqual(image);
   });
 });

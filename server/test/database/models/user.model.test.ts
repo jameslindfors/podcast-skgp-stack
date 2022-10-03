@@ -8,107 +8,74 @@ beforeEach(() => {
   ctx = mockCtx;
 });
 
-describe("Test User DB Model", () => {
-  const created_at = new Date();
-  const updated_at = new Date();
+describe("Test User Prisma Model", () => {
+  const user = {
+    id: 1,
+    username: "user" + Math.random(),
+    post_allowed: true,
+
+    current_post: {
+      id: 1,
+      title: "post" + Math.random(),
+      published: true,
+      author_id: 1,
+      created_at: new Date(),
+      updated_at: new Date(),
+    },
+
+    created_at: new Date(),
+    updated_at: new Date(),
+  };
 
   test("Add entry to User DB Model", async () => {
-    mockCtx.prisma.user.create.mockResolvedValueOnce({
-      id: 1,
-      username: "test",
-      post_allowed: true,
-      created_at: created_at,
-      updated_at: updated_at,
-    });
+    mockCtx.prisma.user.create.mockResolvedValueOnce(user);
     const result = await ctx.prisma.user.create({
       data: {
-        username: "test",
-        post_allowed: true,
+        username: user.username,
+        post_allowed: user.post_allowed,
         current_post: {
           connect: {
-            id: 1,
+            id: user.current_post.id,
           },
         },
       },
     });
-    expect(result).toEqual({
-      id: 1,
-      username: "test",
-      post_allowed: true,
-      created_at: created_at,
-      updated_at: updated_at,
-    });
+    expect(result).toEqual(user);
   });
   test("Get entry from User DB Model", async () => {
-    mockCtx.prisma.user.findUnique.mockResolvedValueOnce({
-      id: 1,
-      username: "test",
-      post_allowed: true,
-      created_at: created_at,
-      updated_at: updated_at,
-    });
+    mockCtx.prisma.user.findUnique.mockResolvedValueOnce(user);
     const result = await ctx.prisma.user.findUnique({
       where: {
-        id: 1,
+        id: user.id,
       },
     });
-    expect(result).toEqual({
-      id: 1,
-      username: "test",
-      post_allowed: true,
-      created_at: created_at,
-      updated_at: updated_at,
-    });
+    expect(result).toEqual(user);
   });
   test("Update entry in User DB Model", async () => {
-    mockCtx.prisma.user.update.mockResolvedValueOnce({
-      id: 1,
-      username: "test",
-      post_allowed: true,
-      created_at: created_at,
-      updated_at: updated_at,
-    });
+    mockCtx.prisma.user.update.mockResolvedValueOnce(user);
     const result = await ctx.prisma.user.update({
       where: {
-        id: 1,
+        id: user.id,
       },
       data: {
-        username: "test",
-        post_allowed: true,
+        username: user.username,
+        post_allowed: user.post_allowed,
         current_post: {
           connect: {
-            id: 1,
+            id: user.current_post.id,
           },
         },
       },
     });
-    expect(result).toEqual({
-      id: 1,
-      username: "test",
-      post_allowed: true,
-      created_at: created_at,
-      updated_at: updated_at,
-    });
+    expect(result).toEqual(user);
   });
   test("Delete entry from User DB Model", async () => {
-    mockCtx.prisma.user.delete.mockResolvedValueOnce({
-      id: 1,
-      username: "test",
-      post_allowed: true,
-      created_at: created_at,
-      updated_at: updated_at,
-    });
+    mockCtx.prisma.user.delete.mockResolvedValueOnce(user);
     const result = await ctx.prisma.user.delete({
       where: {
-        id: 1,
+        id: user.id,
       },
     });
-    expect(result).toEqual({
-      id: 1,
-      username: "test",
-      post_allowed: true,
-      created_at: created_at,
-      updated_at: updated_at,
-    });
+    expect(result).toEqual(user);
   });
 });

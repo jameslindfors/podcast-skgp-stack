@@ -1,7 +1,10 @@
 import { prisma } from "../../../config/database/index";
 
 const postMutations = {
-  createPost: async (_: unknown, args: { input: any }) => {
+  createPost: async (
+    _: unknown,
+    args: { input: { author_id: number; title: string; published: boolean } }
+  ) => {
     const { input } = args;
     const post = await prisma.post.create({
       data: {
