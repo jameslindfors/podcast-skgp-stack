@@ -5,7 +5,36 @@
 	let audio: HTMLMediaElement;
 	let currentInputDeviceId: string | undefined;
 	let currentOutputDeviceId: string | undefined;
-	let recording: boolean;
+	let chunks: Blob[] = [];
+	let returnedAudio: string | undefined;
+	let isRecording: boolean;
+
+	const sendRecording = async () => {
+		const blob = new Blob(chunks, { type: 'audio/ogg; codecs=opus' });
+		const formData = new FormData();
+		formData.append('audio', blob);
+
+		const response = await fetch('/record', {
+			method: 'POST',
+			body: formData
+		});
+
+		if (response.ok) {
+			console.log('Recording sent successfully');
+		} else {
+			console.error('Error sending recording');
+		}
+
+		const reader = response?.body?.getReader();
+		const decoder = new TextDecoder('utf-8');
+		if (reader) {
+			const { value } = await reader.read();
+			console.log(decoder.decode(value));
+			returnedAudio = decoder.decode(value);
+		}
+
+		chunks = [];
+	};
 
 	const getInputDevices = async () => {
 		const devices = await navigator.mediaDevices.enumerateDevices();
@@ -19,19 +48,21 @@
 
 	const startRecording = async () => {
 		mediaRecorder.start();
-		recording = true;
+		isRecording = true;
 
 		mediaRecorder.addEventListener('dataavailable', (event) => {
 			if (event.data.size > 0) {
 				const audioURL = URL.createObjectURL(event.data);
 				audio.src = audioURL;
+				chunks.push(event.data);
+				console.info('Recording chunk added');
 			}
 		});
 	};
 
 	const stopRecording = () => {
 		mediaRecorder.stop();
-		recording = false;
+		isRecording = false;
 	};
 
 	const updateSelectedInputDevice = async (e: unknown) => {
@@ -67,16 +98,17 @@
 </script>
 
 <svelte:head>
-	<title>{recording ? 'Recording...' : 'Record'}</title>
+	<title>{isRecording ? 'Recording...' : 'Record'}</title>
 </svelte:head>
 
 <div>
 	<button on:click={startRecording}>Start Recording</button>
 	<button on:click={stopRecording}>Stop Recording</button>
+	<button on:click={sendRecording}>Send Recording</button>
 
 	<br />
 
-	{#if recording}
+	{#if isRecording}
 		<p>Recording...</p>
 	{:else}
 		<p>Not recording</p>
@@ -94,7 +126,7 @@
 		<p>loading...</p>
 	{:then devices}
 		<label for="input-device">Input Device:</label>
-		<select on:change={updateSelectedInputDevice} disabled={recording}>
+		<select on:change={updateSelectedInputDevice} disabled={isRecording}>
 			{#each devices as device}
 				<option value={device.deviceId} selected={device.deviceId == currentInputDeviceId}
 					>{device.label}</option
@@ -109,7 +141,7 @@
 		<p>loading...</p>
 	{:then devices}
 		<label for="output-device">Output Device:</label>
-		<select on:change={updateSelectedOutputDevice} disabled={recording}>
+		<select on:change={updateSelectedOutputDevice} disabled={isRecording}>
 			{#each devices as device}
 				<option value={device.deviceId} selected={device.deviceId == currentOutputDeviceId}
 					>{device.label}</option
@@ -117,4 +149,16 @@
 			{/each}
 		</select>
 	{/await}
+
+	<br />
+
+	{#if returnedAudio}
+		<aside>
+			<p>Recorded Audio Passed Through Server</p>
+			<audio controls controlslist="nodownload">
+				<source src={returnedAudio} type="audio/ogg; codecs=opus" />
+				Audio not supported in your browser.
+			</audio>
+		</aside>
+	{/if}
 </div>
