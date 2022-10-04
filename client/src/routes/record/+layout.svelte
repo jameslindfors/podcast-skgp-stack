@@ -1,6 +1,6 @@
 <svelte:head>
-	<meta name="theme-color" content="green" />
 	<title>Record</title>
+	<meta name="description" content="Record page" />
 </svelte:head>
 
 <section>
