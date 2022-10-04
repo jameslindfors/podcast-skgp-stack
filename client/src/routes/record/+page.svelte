@@ -8,6 +8,7 @@
 	let chunks: Blob[] = [];
 	let returnedAudio: string | undefined;
 	let isRecording: boolean;
+	let acceptedPermissions: boolean = false;
 
 	const sendRecording = async () => {
 		const blob = new Blob(chunks, { type: 'audio/ogg; codecs=opus' });
@@ -69,7 +70,14 @@
 		const stream = await navigator.mediaDevices.getUserMedia({
 			audio: {
 				// @ts-expect-error - e.target is valid
-				deviceId: e.target[e.target.selectedIndex].value
+				deviceId: e.target[e.target.selectedIndex].value,
+				echoCancellation: false,
+				noiseSuppression: true,
+				autoGainControl: true,
+				sampleRate: 96000,
+				channelCount: 2,
+				sampleSize: 24,
+				latency: 0.01,
 			}
 		});
 		// @ts-expect-error - e.target is valid
@@ -88,12 +96,21 @@
 		console.log('Hello from the record page!');
 
 		const stream = await navigator.mediaDevices.getUserMedia({
-			audio: true,
-			video: false
+			audio: {
+				echoCancellation: false,
+				noiseSuppression: true,
+				autoGainControl: true,
+				sampleRate: 96000,
+				channelCount: 2,
+				sampleSize: 24,
+				latency: 0.01,
+			}
 		});
 
 		currentInputDeviceId = stream.getAudioTracks()[0].getSettings().deviceId;
 		mediaRecorder = new MediaRecorder(stream);
+
+		acceptedPermissions = true;
 	});
 </script>
 
@@ -122,6 +139,7 @@
 
 	<br />
 
+	{#if acceptedPermissions}
 	{#await getInputDevices()}
 		<p>loading...</p>
 	{:then devices}
@@ -149,6 +167,7 @@
 			{/each}
 		</select>
 	{/await}
+	{/if}
 
 	<br />
 
