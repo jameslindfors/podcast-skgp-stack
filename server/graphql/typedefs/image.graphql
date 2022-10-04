@@ -6,8 +6,6 @@ type Image {
 }
 
 input ImageInput {
-  user_id: ID!
-  image_id: ID!
   alt: String
   data: Byte!
 }

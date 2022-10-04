@@ -7,6 +7,8 @@ type Query {
 
   post(id: ID!): Post
   posts: [Post]
+
+  responses(post_id: ID!): [Response]
 }
 
 type Mutation {
@@ -18,7 +20,7 @@ type Mutation {
   updatePost(id: ID!, input: UpdatePostInput): Post
   deletePost(id: ID!): Post
 
-  uploadProfileImage(user_id: ID!, file: ImageInput): User
+  uploadProfileImage(user_id: ID!, input: ImageInput): User
 
   addResponseToPost(post_id: ID!, input: ResponseInput): Post
 

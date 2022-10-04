@@ -24,7 +24,7 @@ const postMutations = {
     const { id, input } = args;
     const post = await prisma.post.update({
       where: {
-        id: parseInt(id),
+        post_id: parseInt(id),
       },
       data: {
         ...input,
@@ -37,7 +37,7 @@ const postMutations = {
     const { id } = args;
     const post = await prisma.post.delete({
       where: {
-        id: parseInt(id),
+        post_id: parseInt(id),
       },
     });
 
