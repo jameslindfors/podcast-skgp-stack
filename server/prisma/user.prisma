@@ -5,9 +5,13 @@ datasource db {
 
 model User {
   id           Int     @id @default(autoincrement())
-  profile_img  Image?
+  profile_img  ProfileImage?
   username     String  @unique
+  hashed_pw    String
   post_allowed Boolean @default(false)
+
+  identifier_token String? @unique
+  token        refresh_token[]
 
   current_post Post?
 
@@ -20,7 +24,12 @@ model Post {
   author_id Int  @unique
 }
 
-model Image {
+model ProfileImage {
   user    User @relation(fields: [user_id], references: [id])
   user_id Int  @unique
+}
+
+model refresh_token {
+  user_id Int  @unique
+  user    User @relation(fields: [user_id], references: [id])
 }

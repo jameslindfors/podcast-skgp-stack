@@ -3,7 +3,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Image {
+model ProfileImage {
   image_id  Int    @id @default(autoincrement())
   alt String
   data Bytes
