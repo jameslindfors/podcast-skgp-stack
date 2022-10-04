@@ -1,7 +1,14 @@
 type User implements Timestamps {
   id: ID
+  profile_img: Image
   username: String!
+  hashed_pw: String
   post_allowed: Boolean!
+
+  identifier_token: String
+  token: [String]
+
+  current_post: Post
 
   # Interface required
   created_at: Date!
@@ -10,6 +17,7 @@ type User implements Timestamps {
 
 input CreateUserInput {
   username: String!
+  hashed_pw: String
 }
 
 input UpdateUserInput {

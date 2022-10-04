@@ -1,0 +1,15 @@
+type Content implements Timestamps {
+  content_id: ID
+  content_path: String
+  alt: String
+
+  post_id: Int
+  created_at: Date!
+  updated_at: Date!
+}
+
+input CreateContentInput {
+  content_path: String!
+  alt: String!
+  post_id: Int!
+}
