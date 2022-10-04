@@ -5,7 +5,7 @@ const postQueries = {
     const { id } = args;
     const post = await prisma.post.findUnique({
       where: {
-        id: parseInt(id),
+        post_id: parseInt(id),
       },
     });
 

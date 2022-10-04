@@ -1,0 +1,9 @@
+type refresh_token {
+  refresh_token: String
+  user_id: Int
+}
+
+input refresh_tokenInput {
+  refresh_token: String
+  user_id: Int
+}

@@ -28,19 +28,22 @@ model meta {
 }
 
 model User {
-  id           Int      @id @default(autoincrement())
-  profile_img  Image?   @relation(name: "ImageToUser")
-  username     String   @unique
-  post_allowed Boolean  @default(false)
-  current_post Post?    @relation(name: "PostToUser")
-  created_at   DateTime @default(now())
-  updated_at   DateTime @updatedAt
+  id               Int             @id @default(autoincrement())
+  profile_img      ProfileImage?   @relation(name: "ProfileImageToUser")
+  username         String          @unique
+  hashed_pw        String
+  post_allowed     Boolean         @default(false)
+  identifier_token String?         @unique
+  token            refresh_token[] @relation(name: "UserTorefresh_token")
+  current_post     Post?           @relation(name: "PostToUser")
+  created_at       DateTime        @default(now())
+  updated_at       DateTime        @updatedAt
 }
 
 model Post {
   author     User       @relation(name: "PostToUser", fields: [author_id], references: [id])
   author_id  Int        @unique
-  id         Int        @id @default(autoincrement())
+  post_id    Int        @id @default(autoincrement())
   title      String
   published  Boolean    @default(false)
   content    Content?   @relation(name: "content")
@@ -48,17 +51,23 @@ model Post {
   created_at DateTime   @default(now())
 }
 
-model Image {
-  user    User   @relation(name: "ImageToUser", fields: [user_id], references: [id])
-  user_id Int    @unique
-  id      Int    @id @default(autoincrement())
-  alt     String
-  src     Bytes
+model ProfileImage {
+  user     User   @relation(name: "ProfileImageToUser", fields: [user_id], references: [id])
+  user_id  Int    @unique
+  image_id Int    @id @default(autoincrement())
+  alt      String
+  data     Bytes
+}
+
+model refresh_token {
+  user_id       Int    @unique
+  user          User   @relation(name: "UserTorefresh_token", fields: [user_id], references: [id])
+  refresh_token String @id
 }
 
 model Content {
   content_id   Int      @id @default(autoincrement())
-  post         Post     @relation(name: "content", fields: [post_id], references: [id])
+  post         Post     @relation(name: "content", fields: [post_id], references: [post_id])
   post_id      Int      @unique
   content_path String
   alt          String
@@ -68,7 +77,7 @@ model Content {
 
 model Response {
   response_id   Int      @id @default(autoincrement())
-  post          Post     @relation(name: "reactions", fields: [post_id], references: [id])
+  post          Post     @relation(name: "reactions", fields: [post_id], references: [post_id])
   post_id       Int
   response_path String
   alt           String

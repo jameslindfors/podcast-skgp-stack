@@ -1,4 +1,5 @@
 scalar Date
+scalar Byte
 
 type Query {
   user(id: ID!): User
@@ -6,6 +7,8 @@ type Query {
 
   post(id: ID!): Post
   posts: [Post]
+
+  responses(post_id: ID!): [Response]
 }
 
 type Mutation {
@@ -16,4 +19,10 @@ type Mutation {
   createPost(input: CreatePostInput): Post
   updatePost(id: ID!, input: UpdatePostInput): Post
   deletePost(id: ID!): Post
+
+  uploadProfileImage(user_id: ID!, input: ImageInput): User
+
+  addResponseToPost(post_id: ID!, input: ResponseInput): Post
+
+  refresh_token(input: refresh_tokenInput): refresh_token
 }

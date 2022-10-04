@@ -4,7 +4,7 @@ datasource db {
 }
 
 model Post {
-  id        Int     @id @default(autoincrement())
+  post_id        Int     @id @default(autoincrement())
   title     String
   published Boolean @default(false)
 
@@ -16,12 +16,12 @@ model Post {
 
 model Content {
   content_id Int  @id @default(autoincrement())
-  post       Post @relation("content", fields: [post_id], references: [id])
+  post       Post @relation("content", fields: [post_id], references: [post_id])
   post_id    Int  @unique
 }
 
 model Response {
   response_id Int  @id @default(autoincrement())
-  post        Post @relation("reactions", fields: [post_id], references: [id])
+  post        Post @relation("reactions", fields: [post_id], references: [post_id])
   post_id     Int
 }

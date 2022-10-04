@@ -7,6 +7,7 @@
         "./prisma/entity_post.prisma",
         "./prisma/entity_content.prisma",
         "./prisma/entity_response.prisma",
+        "./prisma/refresh_token.prisma",
         "./prisma/image.prisma"
       ],
       "output": "./prisma/schema.prisma"
