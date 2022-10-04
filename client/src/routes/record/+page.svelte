@@ -8,7 +8,7 @@
 	let chunks: Blob[] = [];
 	let returnedAudio: string | undefined;
 	let isRecording: boolean;
-	let acceptedPermissions: boolean = false;
+	let acceptedPermissions = false;
 
 	const sendRecording = async () => {
 		const blob = new Blob(chunks, { type: 'audio/ogg; codecs=opus' });
@@ -77,7 +77,7 @@
 				sampleRate: 96000,
 				channelCount: 2,
 				sampleSize: 24,
-				latency: 0.01,
+				latency: 0.01
 			}
 		});
 		// @ts-expect-error - e.target is valid
@@ -103,7 +103,7 @@
 				sampleRate: 96000,
 				channelCount: 2,
 				sampleSize: 24,
-				latency: 0.01,
+				latency: 0.01
 			}
 		});
 
@@ -140,33 +140,33 @@
 	<br />
 
 	{#if acceptedPermissions}
-	{#await getInputDevices()}
-		<p>loading...</p>
-	{:then devices}
-		<label for="input-device">Input Device:</label>
-		<select on:change={updateSelectedInputDevice} disabled={isRecording}>
-			{#each devices as device}
-				<option value={device.deviceId} selected={device.deviceId == currentInputDeviceId}
-					>{device.label}</option
-				>
-			{/each}
-		</select>
-	{/await}
+		{#await getInputDevices()}
+			<p>loading...</p>
+		{:then devices}
+			<label for="input-device">Input Device:</label>
+			<select on:change={updateSelectedInputDevice} disabled={isRecording}>
+				{#each devices as device}
+					<option value={device.deviceId} selected={device.deviceId == currentInputDeviceId}
+						>{device.label}</option
+					>
+				{/each}
+			</select>
+		{/await}
 
-	<br />
+		<br />
 
-	{#await getOutputDevices()}
-		<p>loading...</p>
-	{:then devices}
-		<label for="output-device">Output Device:</label>
-		<select on:change={updateSelectedOutputDevice} disabled={isRecording}>
-			{#each devices as device}
-				<option value={device.deviceId} selected={device.deviceId == currentOutputDeviceId}
-					>{device.label}</option
-				>
-			{/each}
-		</select>
-	{/await}
+		{#await getOutputDevices()}
+			<p>loading...</p>
+		{:then devices}
+			<label for="output-device">Output Device:</label>
+			<select on:change={updateSelectedOutputDevice} disabled={isRecording}>
+				{#each devices as device}
+					<option value={device.deviceId} selected={device.deviceId == currentOutputDeviceId}
+						>{device.label}</option
+					>
+				{/each}
+			</select>
+		{/await}
 	{/if}
 
 	<br />

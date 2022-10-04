@@ -14,6 +14,9 @@ const config: UserConfig = {
 			}
 		}
 	},
+	optimizeDeps: {
+		exclude: ['@urql/svelte']
+	},
 	plugins: [sveltekit()]
 };
 
