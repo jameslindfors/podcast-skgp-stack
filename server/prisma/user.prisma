@@ -4,19 +4,31 @@ datasource db {
 }
 
 model User {
-  id           Int     @id @default(autoincrement())
+  id           Int           @id @default(autoincrement())
   profile_img  ProfileImage?
-  username     String  @unique
+  username     String        @unique
   hashed_pw    String
-  post_allowed Boolean @default(false)
+  post_allowed Boolean       @default(false)
 
-  identifier_token String? @unique
-  token        refresh_token[]
+  identifier_token String?         @unique
+  token            refresh_token[]
 
   current_post Post?
 
+  followers Follows[] @relation("follower")
+  following Follows[] @relation("following")
+
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
+}
+
+model Follows {
+  follower    User @relation("follower", fields: [followerId], references: [id])
+  followerId  Int
+  following   User @relation("following", fields: [followingId], references: [id])
+  followingId Int
+
+  @@id([followerId, followingId])
 }
 
 model Post {
