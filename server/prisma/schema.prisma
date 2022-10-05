@@ -36,8 +36,19 @@ model User {
   identifier_token String?         @unique
   token            refresh_token[] @relation(name: "UserTorefresh_token")
   current_post     Post?           @relation(name: "PostToUser")
+  followers        Follows[]       @relation(name: "follower")
+  following        Follows[]       @relation(name: "following")
   created_at       DateTime        @default(now())
   updated_at       DateTime        @updatedAt
+}
+
+model Follows {
+  follower    User @relation(name: "follower", fields: [followerId], references: [id])
+  followerId  Int
+  following   User @relation(name: "following", fields: [followingId], references: [id])
+  followingId Int
+
+  @@id([followerId, followingId])
 }
 
 model Post {
