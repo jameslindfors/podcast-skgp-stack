@@ -9,7 +9,8 @@
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"lint": "eslint . --ext .js,.ts,.svelte",
-		"prettier": "prettier --write ."
+		"prettier": "prettier --write .",
+		"ci": "yarn check && yarn lint && yarn prettier"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "next",
