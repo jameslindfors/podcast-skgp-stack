@@ -31,6 +31,7 @@ model User {
   id               Int             @id @default(autoincrement())
   profile_img      ProfileImage?   @relation(name: "ProfileImageToUser")
   username         String          @unique
+  email            String          @unique
   hashed_pw        String
   post_allowed     Boolean         @default(false)
   identifier_token String?         @unique

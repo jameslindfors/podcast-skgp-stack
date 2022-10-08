@@ -1,7 +1,13 @@
 import Koa from "koa";
+import cors from "@koa/cors";
+import bodyParser from "koa-bodyparser";
+import session from "koa-session";
+import passport from "koa-passport";
+
 import mount from "koa-mount";
 import gqlHttp from "./graphql";
-import cors from "@koa/cors";
+
+import authRoutes from "./auth/routes";
 
 const app = new Koa();
 
@@ -16,6 +22,18 @@ app.use(
     keepHeadersOnError: false,
   })
 );
+
+app.keys = ["super-secret-key"];
+app.use(session({}, app));
+
+app.use(bodyParser());
+
+import "./auth/index";
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use(mount("/graphql", gqlHttp));
+
+app.use(authRoutes.routes());
 
 export default app;

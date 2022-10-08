@@ -7,6 +7,7 @@ model User {
   id           Int           @id @default(autoincrement())
   profile_img  ProfileImage?
   username     String        @unique
+  email        String        @unique
   hashed_pw    String
   post_allowed Boolean       @default(false)
 
