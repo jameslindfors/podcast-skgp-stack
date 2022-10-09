@@ -1,6 +1,7 @@
 import Koa from "koa";
 import cors from "@koa/cors";
 import bodyParser from "koa-bodyparser";
+import cookie from "koa-cookie";
 import session from "koa-session";
 import passport from "koa-passport";
 
@@ -23,10 +24,11 @@ app.use(
   })
 );
 
-app.keys = ["super-secret-key"];
+app.keys = [process.env.API_SECRET || "test"];
 app.use(session({}, app));
 
 app.use(bodyParser());
+app.use(cookie());
 
 import "./auth/index";
 app.use(passport.initialize());

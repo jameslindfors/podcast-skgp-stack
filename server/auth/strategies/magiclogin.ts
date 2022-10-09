@@ -5,7 +5,7 @@ import { sendEmail } from "../../services/mail";
 import { mailLoginRegisterSettings } from "../../services/mail/config";
 
 export const magicLogin = new MagicLoginStrategy({
-  secret: "my-secret",
+  secret: process.env.MAGIC_LOGIN_SECRET || "secret",
   callbackUrl: "/auth/magiclogin/callback",
   sendMagicLink: async (destination, href) => {
     await sendEmail({
@@ -30,10 +30,12 @@ export const magicLogin = new MagicLoginStrategy({
           hashed_pw: "test123",
         },
       })
-      .then((user) => {
+      .then((user: unknown) => {
+        // @ts-expect-error == TODO: Fix this
         callback(undefined, user);
       })
-      .catch((err) => {
+      .catch((err: unknown) => {
+        // @ts-expect-error == TODO: Fix this
         callback(err);
       });
   },
