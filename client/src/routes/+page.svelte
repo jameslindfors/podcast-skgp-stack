@@ -22,18 +22,12 @@
 	<meta name="description" content="Home page" />
 </svelte:head>
 
-<h1>Podcast</h1>
-<a href="/record">Record</a>
-
-{#if $user.fetching}
-	<p>loading...</p>
-{:else if $user.error}
-	<p>oh no... {$user.error.message}</p>
+{#if $user?.data?.user.username}
+	<h1>Welcome back, {$user.data.user.username}</h1>
 {:else}
-	<p>user: {$user.data.user.username}</p>
-	{#if $user.data.user.post_allowed}
-		<p>post allowed</p>
-	{:else}
-		<p>post not allowed</p>
-	{/if}
+	<h1>Welcome, Guest!</h1>
+{/if}
+
+{#if $user?.data?.post_allowed}
+	<a href="/record">Record</a>
 {/if}

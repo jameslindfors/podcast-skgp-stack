@@ -7,3 +7,4 @@
 	<input type="email" name="email" id="email" />
 	<button type="submit">Login</button>
 </form>
+<a href="http://localhost:4000/auth/twitch">Login With Twitch</a>
