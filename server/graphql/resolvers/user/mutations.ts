@@ -3,7 +3,7 @@ import { prisma } from "../../../config/database/index";
 const userMutations = {
   createUser: async (
     _: unknown,
-    args: { input: { username: string; hashed_pw: string } }
+    args: { input: { username: string; email: string; hashed_pw: string } }
   ) => {
     const { input } = args;
     const user = await prisma.user.create({
