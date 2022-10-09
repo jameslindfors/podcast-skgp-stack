@@ -31,3 +31,5 @@
 {#if $user?.data?.post_allowed}
 	<a href="/record">Record</a>
 {/if}
+
+<a href="/auth">Login</a>
