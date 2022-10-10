@@ -12,6 +12,4 @@ COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/ .
 COPY --from=builder /app/prisma ./prisma
 
-EXPOSE 4000
-
 CMD yarn start:prod

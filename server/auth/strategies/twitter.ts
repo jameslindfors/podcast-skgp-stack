@@ -5,7 +5,7 @@ export const twitter = new TwitterStrategy(
   {
     clientID: process.env["TWITTER_CLIENT_ID"],
     clientSecret: process.env["TWITTER_CLIENT_SECRET"],
-    callbackURL: "/auth/twitter/callback",
+    callbackURL: process.env['CALLBACK_URL'] + 'auth/twitter/callback' || "http://localhost:4000/auth/magiclogin/callback"
   },
   function (
     accessToken: string,
