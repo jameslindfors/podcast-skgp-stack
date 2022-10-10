@@ -32,7 +32,7 @@ const config: UserConfig = {
 				short_name: 'MyApp',
 				description: 'My Awesome App description',
 				orientation: 'portrait',
-				display: 'standalone',
+				display: 'standalone'
 			}
 		})
 	]

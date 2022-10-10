@@ -2,7 +2,7 @@
 import SibApiV3Sdk from "sib-api-v3-sdk";
 
 SibApiV3Sdk.ApiClient.instance.authentications["api-key"].apiKey =
-  process.env.SENDINBLUE_API_KEY;
+  process.env["SENDINBLUE_API_KEY"];
 
 interface Params<T> {
   [key: string]: T;

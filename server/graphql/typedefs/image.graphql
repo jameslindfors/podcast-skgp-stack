@@ -2,10 +2,10 @@ type Image {
   user_id: ID!
   image_id: ID!
   alt: String
-  data: Byte!
+  image_url: String
 }
 
 input ImageInput {
   alt: String
-  data: Byte!
+  image_url: String
 }

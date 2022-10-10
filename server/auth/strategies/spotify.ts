@@ -1,21 +1,22 @@
 // @ts-expect-error -- No types exist
-import SpotifyStrategy from "passport-spotify";
-const spotifyStrategy = SpotifyStrategy.Strategy;
+import { Strategy as SpotifyStrategy } from "passport-spotify";
 // import { prisma } from "../../config/database";
 
-export const spotify = new spotifyStrategy(
+export const spotify = new SpotifyStrategy(
   {
-    clientID: process.env.SPOTIFY_CLIENT_ID || "",
-    clientSecret: process.env.SPOTIFY_CLIENT_SECRET || "",
-    callbackURL: process.env['CALLBACK_URL'] + 'auth/spotify/callback' || "http://localhost:4000/auth/spotify/callback"
+    clientID: process.env["SPOTIFY_CLIENT_ID"] || "",
+    clientSecret: process.env["SPOTIFY_CLIENT_SECRET"] || "",
+    callbackURL:
+      process.env["CALLBACK_URL"] + "auth/spotify/callback" ||
+      "http://localhost:4000/auth/spotify/callback",
   },
-  function (
+  (
     accessToken: string,
     refreshToken: string,
     expires_in: string,
     profile: unknown,
     done: unknown
-  ) {
+  ) => {
     console.log(profile);
     // @ts-expect-error -- Unknown type
     done(null, profile);

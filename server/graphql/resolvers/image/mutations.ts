@@ -5,7 +5,7 @@ const imageMutations = {
     _: unknown,
     args: {
       user_id: string;
-      input: { alt: string; data: Buffer };
+      input: { alt: string; image_url: string };
     }
   ) => {
     const { user_id, input } = args;

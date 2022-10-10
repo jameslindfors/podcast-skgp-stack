@@ -3,7 +3,7 @@ export const actions = {
 		const formData = await request.formData();
 		const email = formData.get('email');
 
-		const res = await fetch(`http://localhost:4000/auth/magiclogin`, {
+		const res = await fetch(`https://project-water-circuit.live/auth/magiclogin`, {
 			method: `POST`,
 			body: JSON.stringify({ destination: email, name: 'UpdatedFrontendUsername?' }),
 			headers: { 'Content-Type': 'application/json' }

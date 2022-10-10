@@ -6,5 +6,5 @@ datasource db {
 model ProfileImage {
   image_id  Int    @id @default(autoincrement())
   alt String
-  data Bytes
+  image_url String
 }

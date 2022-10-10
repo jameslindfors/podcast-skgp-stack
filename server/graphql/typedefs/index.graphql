@@ -1,5 +1,4 @@
 scalar Date
-scalar Byte
 
 type Query {
   user(id: ID!): User

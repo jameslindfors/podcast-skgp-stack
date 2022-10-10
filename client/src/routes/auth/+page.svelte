@@ -7,4 +7,7 @@
 	<input type="email" name="email" id="email" />
 	<button type="submit">Login</button>
 </form>
-<a href="http://localhost:4000/auth/twitch">Login With Twitch</a>
+<a href=" https://project-water-circuit.live/auth/twitch">Login With Twitch</a>
+<a href=" https://project-water-circuit.live/auth/spotify">Login With Spotify</a>
+<a href=" https://project-water-circuit.liveauth/twitter">Login With Twitter</a>
+<a href=" https://project-water-circuit.live/auth/instagram">Login With Instagram</a>

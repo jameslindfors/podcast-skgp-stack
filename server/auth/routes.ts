@@ -1,10 +1,11 @@
 import Router from "koa-router";
 import passport from "koa-passport";
-import { magicLogin } from "./strategies/magiclogin";
 
 const router = new Router();
 
 // MAGIC LOGIN
+import { magicLogin } from "./strategies/magiclogin";
+
 router.post("/auth/magiclogin", async (ctx) => {
   magicLogin.send(ctx.request, ctx.response);
 });
@@ -14,7 +15,7 @@ router.get(
   passport.authenticate("magiclogin"),
   async (ctx) => {
     // TODO - eventually redirect to either register or home page
-    ctx.redirect("http://localhost:5173");
+    ctx.redirect("http://localhost:5173/");
   }
 );
 
@@ -26,9 +27,9 @@ router.get(
   passport.authenticate("twitch", {
     failureRedirect: "http://localhost:5173/",
   }),
-  function (ctx) {
+  async (ctx) => {
     // TODO - eventually redirect to either register or home page
-    ctx.redirect("http://localhost:5173");
+    ctx.redirect("http://localhost:5173/");
   }
 );
 
@@ -46,9 +47,9 @@ router.get(
   passport.authenticate("spotify", {
     failureRedirect: "http://localhost:5173/",
   }),
-  function (ctx) {
+  async (ctx) => {
     // TODO - eventually redirect to either register or home page
-    ctx.redirect("http://localhost:5173");
+    ctx.redirect("http://localhost:5173/");
   }
 );
 
@@ -58,11 +59,11 @@ router.get(
 // router.get(
 //   "/auth/twitter/callback",
 //   passport.authenticate("twitter", {
-//     failureRedirect: "http://localhost:5173",
+//     failureRedirect: "http://localhost:5173/",
 //   }),
-//   function (ctx) {
+//   async (ctx) => {
 //     // Successful authentication, redirect home.
-//     ctx.redirect("http://localhost:5173");
+//     ctx.redirect("http://localhost:5173/");
 //   }
 // );
 
@@ -71,10 +72,10 @@ router.get("/auth/instagram", passport.authenticate("instagram"));
 router.get(
   "/auth/instagram/callback",
   passport.authenticate("instagram", {
-    failureRedirect: "http://localhost:5173",
+    failureRedirect: "http://localhost:5173/",
   }),
-  function (ctx) {
-    // Successful authentication, redirect home.
+  async (ctx) => {
+    // TODO - eventually redirect to either register or home page
     ctx.redirect("http://localhost:5173/");
   }
 );

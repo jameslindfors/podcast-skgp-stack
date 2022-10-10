@@ -6,6 +6,7 @@ datasource db {
 
 generator client {
   provider = "prisma-client-js"
+  binaryTargets = ["native", "linux-musl"]
 }
 
 generator docs {
@@ -13,8 +14,8 @@ generator docs {
   output   = "./docs"
 }
 
-generator class_validator {
-  provider = "prisma-class-validator-generator"
+generator dbml {
+  provider = "prisma-dbml-generator"
 }
 
 model meta {
@@ -28,7 +29,6 @@ model User {
   profile_img      ProfileImage?   @relation(name: "ProfileImageToUser")
   username         String          @unique
   email            String          @unique
-  hashed_pw        String
   post_allowed     Boolean         @default(false)
   identifier_token String?         @unique
   token            refresh_token[] @relation(name: "UserTorefresh_token")
@@ -60,11 +60,11 @@ model Post {
 }
 
 model ProfileImage {
-  user     User   @relation(name: "ProfileImageToUser", fields: [user_id], references: [id])
-  user_id  Int    @unique
-  image_id Int    @id @default(autoincrement())
-  alt      String
-  data     Bytes
+  user      User   @relation(name: "ProfileImageToUser", fields: [user_id], references: [id])
+  user_id   Int    @unique
+  image_id  Int    @id @default(autoincrement())
+  alt       String
+  image_url String
 }
 
 model refresh_token {

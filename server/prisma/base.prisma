@@ -1,6 +1,5 @@
 generator client {
   provider = "prisma-client-js"
-  binaryTargets = ["native", "linux-musl"]
 }
 
 generator docs {
@@ -8,13 +7,9 @@ generator docs {
   output   = "./docs"
 }
 
-generator class_validator {
-  provider = "prisma-class-validator-generator"
+generator dbml {
+  provider = "prisma-dbml-generator"
 }
-
-// generator dbml {
-//   provider = "prisma-dbml-generator"
-// }
 
 datasource db {
   provider = "postgresql"

@@ -8,11 +8,15 @@ beforeEach(() => {
   ctx = mockCtx;
 });
 
+afterAll(async () => {
+  await ctx.prisma.$disconnect();
+});
+
 describe("Test User Prisma Model", () => {
   const user = {
     id: 1,
     username: "user1",
-    hashed_pw: "hashed_pw",
+    email: "user1@mail.com",
     post_allowed: true,
 
     current_post: {
@@ -57,7 +61,7 @@ describe("Test User Prisma Model", () => {
   const user2 = {
     id: 2,
     username: "user2",
-    hashed_pw: "hashed_pw",
+    email: "email2@mail.com",
     post_allowed: true,
 
     current_post: {
@@ -82,7 +86,7 @@ describe("Test User Prisma Model", () => {
       {
         id: 2,
         username: "follower" + Math.random(),
-        hashed_pw: "hashed_pw",
+        email: "follower@mail.com",
         post_allowed: true,
       },
     ],
@@ -90,7 +94,7 @@ describe("Test User Prisma Model", () => {
       {
         id: 2,
         username: "following" + Math.random(),
-        hashed_pw: "hashed_pw",
+        email: "following@mail.com",
         post_allowed: true,
       },
     ],
