@@ -7,7 +7,7 @@ export const spotify = new SpotifyStrategy(
     clientID: process.env["SPOTIFY_CLIENT_ID"] || "",
     clientSecret: process.env["SPOTIFY_CLIENT_SECRET"] || "",
     callbackURL:
-      "auth/spotify/callback" ,
+      "/auth/spotify/callback" ,
   },
   (
     accessToken: string,
