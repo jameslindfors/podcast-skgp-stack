@@ -12,7 +12,6 @@ FROM base AS dependencies
 # RUN cp -R node_modules prod_node_modules
 RUN yarn install
 RUN cp -R node_modules prod_node_modules
-RUN yarn prisma:generate --schema=./prisma/schema.prisma
 RUN cp -R prisma prisma-prod
 
 FROM dependencies AS audit
@@ -22,6 +21,8 @@ COPY . .
 FROM base AS release
 COPY --from=dependencies /usr/app/prod_node_modules ./node_modules
 COPY --from=dependencies /usr/app/prisma-prod ./prisma
+RUN yarn prisma:generate --schema=./prisma/schema.prisma
 COPY . .
+EXPOSE 4000
 
 CMD yarn start:prod
