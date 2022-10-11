@@ -8,35 +8,34 @@ beforeEach(() => {
   ctx = mockCtx;
 });
 
-describe("Test Image Prisma Model", () => {
-  const src = Buffer.from(
-    "R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7",
-    "base64"
-  );
+afterAll(async () => {
+  await ctx.prisma.$disconnect();
+});
 
+describe("Test Image Prisma Model", () => {
   const image = {
-    id: 1,
+    image_id: 1,
     user_id: 1,
     alt: "image" + Math.random(),
-    src,
+    image_url: "image_url",
     created_at: new Date(),
     updated_at: new Date(),
   };
 
   test("Add entry to Image DB Model", async () => {
-    mockCtx.prisma.image.create.mockResolvedValueOnce(image);
-    const result = await ctx.prisma.image.create({
+    mockCtx.prisma.profileImage.create.mockResolvedValueOnce(image);
+    const result = await ctx.prisma.profileImage.create({
       data: {
         user_id: image.user_id,
         alt: image.alt,
-        src: image.src,
+        image_url: image.image_url,
       },
     });
     expect(result).toEqual(image);
   });
   test("Get entry from Image DB Model", async () => {
-    mockCtx.prisma.image.findUnique.mockResolvedValueOnce(image);
-    const result = await ctx.prisma.image.findUnique({
+    mockCtx.prisma.profileImage.findUnique.mockResolvedValueOnce(image);
+    const result = await ctx.prisma.profileImage.findUnique({
       where: {
         user_id: image.user_id,
       },
@@ -44,21 +43,21 @@ describe("Test Image Prisma Model", () => {
     expect(result).toEqual(image);
   });
   test("Update entry in Image DB Model", async () => {
-    mockCtx.prisma.image.update.mockResolvedValueOnce(image);
-    const result = await ctx.prisma.image.update({
+    mockCtx.prisma.profileImage.update.mockResolvedValueOnce(image);
+    const result = await ctx.prisma.profileImage.update({
       where: {
         user_id: image.user_id,
       },
       data: {
         alt: image.alt,
-        src: image.src,
+        image_url: image.image_url,
       },
     });
     expect(result).toEqual(image);
   });
   test("Delete entry from Image DB Model", async () => {
-    mockCtx.prisma.image.delete.mockResolvedValueOnce(image);
-    const result = await ctx.prisma.image.delete({
+    mockCtx.prisma.profileImage.delete.mockResolvedValueOnce(image);
+    const result = await ctx.prisma.profileImage.delete({
       where: {
         user_id: image.user_id,
       },

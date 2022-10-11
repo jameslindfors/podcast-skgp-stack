@@ -1,1 +1,0 @@
-server: ts-node server/index.ts --transpileOnly

@@ -8,9 +8,13 @@ beforeEach(() => {
   ctx = mockCtx;
 });
 
+afterAll(async () => {
+  await ctx.prisma.$disconnect();
+});
+
 describe("Test User Prisma Model", () => {
   const post = {
-    id: 1,
+    post_id: 1,
     title: "post" + Math.random(),
     published: true,
     author_id: 1,
@@ -33,7 +37,7 @@ describe("Test User Prisma Model", () => {
     mockCtx.prisma.post.findUnique.mockResolvedValueOnce(post);
     const result = await ctx.prisma.post.findUnique({
       where: {
-        id: post.id,
+        post_id: post.post_id,
       },
     });
     expect(result).toEqual(post);
@@ -42,7 +46,7 @@ describe("Test User Prisma Model", () => {
     mockCtx.prisma.post.update.mockResolvedValueOnce(post);
     const result = await ctx.prisma.post.update({
       where: {
-        id: post.id,
+        post_id: post.post_id,
       },
       data: {
         title: post.title,
@@ -55,7 +59,7 @@ describe("Test User Prisma Model", () => {
     mockCtx.prisma.post.delete.mockResolvedValueOnce(post);
     const result = await ctx.prisma.post.delete({
       where: {
-        id: post.id,
+        post_id: post.post_id,
       },
     });
     expect(result).toEqual(post);

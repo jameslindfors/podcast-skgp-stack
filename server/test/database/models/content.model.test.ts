@@ -8,6 +8,10 @@ beforeEach(() => {
   ctx = mockCtx;
 });
 
+afterAll(async () => {
+  await ctx.prisma.$disconnect();
+});
+
 describe("Test Content Prisma Model", () => {
   const content = {
     post_id: 1,

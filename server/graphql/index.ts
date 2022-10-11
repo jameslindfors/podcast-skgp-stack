@@ -1,9 +1,10 @@
 import { graphqlHTTP } from "koa-graphql";
 import { schema } from "./schema";
+import { env } from "../config/environment";
 
 const gqlHttp = graphqlHTTP({
   schema,
-  graphiql: true,
+  graphiql: env.development,
 });
 
 export default gqlHttp;

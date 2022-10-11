@@ -1,7 +1,7 @@
 import { prisma } from "../../../config/database";
 
 const refreshTokenQueries = {
-  RefreshToken: async (_: unknown, args: { user_id: string }) => {
+  refresh_token: async (_: unknown, args: { user_id: string }) => {
     const { user_id } = args;
     const refreshToken = await prisma.refresh_token.findUnique({
       where: {

@@ -1,5 +1,4 @@
 scalar Date
-scalar Byte
 
 type Query {
   user(id: ID!): User
@@ -9,6 +8,8 @@ type Query {
   posts: [Post]
 
   responses(post_id: ID!): [Response]
+
+  refresh_token(id: ID!): refresh_token
 }
 
 type Mutation {

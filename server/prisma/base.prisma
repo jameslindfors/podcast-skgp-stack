@@ -7,16 +7,12 @@ generator docs {
   output   = "./docs"
 }
 
-generator class_validator {
-  provider = "prisma-class-validator-generator"
-}
-
 generator dbml {
   provider = "prisma-dbml-generator"
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 

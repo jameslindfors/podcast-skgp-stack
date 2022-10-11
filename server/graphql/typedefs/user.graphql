@@ -2,7 +2,7 @@ type User implements Timestamps {
   id: ID
   profile_img: Image
   username: String!
-  hashed_pw: String
+  email: String!
   post_allowed: Boolean!
 
   identifier_token: String
@@ -17,10 +17,11 @@ type User implements Timestamps {
 
 input CreateUserInput {
   username: String!
-  hashed_pw: String
+  email: String!
 }
 
 input UpdateUserInput {
   username: String
+  email: String
   post_allowed: Boolean
 }
