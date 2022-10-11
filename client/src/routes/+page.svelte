@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { gql, queryStore, getContextClient } from '@urql/svelte';
+	import Countdown from '$lib/components/countdown.svelte';
 
 	let id = 1;
 	const user = queryStore({
@@ -33,3 +34,10 @@
 {/if}
 
 <a href="/auth">Login</a>
+<br />
+
+<div>
+	<Countdown />
+	<span>left to post</span>
+
+</div>
