@@ -7,9 +7,7 @@ export const twitch = new TwitchStrategy(
   {
     clientID: process.env["TWITCH_CLIENT_ID"] || "test",
     clientSecret: process.env["TWITCH_CLIENT_SECRET"] || "test",
-    callbackURL:
-      process.env["CALLBACK_URL"] + "auth/twitch/callback" ||
-      "http://localhost:4000/auth/twitch/callback",
+    callbackURL: "auth/twitch/callback",
     scope: "user:read:email",
   },
   (

@@ -7,8 +7,7 @@ import { mailLoginRegisterSettings } from "../../services/mail/config";
 export const magicLogin = new MagicLoginStrategy({
   secret: process.env["MAGIC_LOGIN_SECRET"] || "secret",
   callbackUrl:
-    process.env["CALLBACK_URL"] + "auth/magiclogin/callback" ||
-    "http://localhost:4000/auth/magiclogin/callback",
+   "auth/magiclogin/callback" ,
   sendMagicLink: async (destination, href) => {
     await sendEmail({
       subject: mailLoginRegisterSettings.subject,

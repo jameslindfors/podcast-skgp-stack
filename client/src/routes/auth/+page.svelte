@@ -16,21 +16,21 @@
 			name: 'Instagram',
 			icon: InstagramIcon,
 			color: '#C13584',
-			auth_url: 'https://project-water-circuit.live/auth/instagram'
+			auth_url: 'https://api.project-water-circuit.live/auth/instagram'
 		},
 		{
 			provider: 'spotify',
 			name: 'Spotify',
 			icon: SpotifyIcon,
 			color: '#1DB954',
-			auth_url: 'https://project-water-circuit.live/auth/spotify'
+			auth_url: 'https://api.project-water-circuit.live/auth/spotify'
 		},
 		{
 			provider: 'twitch',
 			name: 'Twitch',
 			icon: TwitchIcon,
 			color: '#9146FF',
-			auth_url: 'https://project-water-circuit.live/auth/twitch'
+			auth_url: 'https://api.project-water-circuit.live/auth/twitch'
 		}
 	];
 	let auth = { email: '' };
