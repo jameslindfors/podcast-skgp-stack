@@ -6,7 +6,7 @@ export const instagram = new InstagramStrategy(
     clientID: process.env["INSTAGRAM_CLIENT_ID"],
     clientSecret: process.env["INSTAGRAM_CLIENT_SECRET"],
     callbackURL:
-     "/auth/instagram/callback", 
+     "https://api.project-water-circuit.live/auth/instagram/callback",
   },
   async (
     accessToken: string,
@@ -14,7 +14,6 @@ export const instagram = new InstagramStrategy(
     profile: unknown,
     done: unknown
   ) => {
-    console.log(profile);
     // @ts-expect-error -- Unknown type
     done(null, profile);
   }

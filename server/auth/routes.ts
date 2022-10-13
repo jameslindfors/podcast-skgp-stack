@@ -15,7 +15,7 @@ router.get(
   passport.authenticate("magiclogin"),
   async (ctx) => {
     // TODO - eventually redirect to either register or home page
-    ctx.redirect("http://localhost:5173/");
+    ctx.redirect(process.env["REDIRECT_URL"] || "http://localhost:5173/");
   }
 );
 
@@ -25,11 +25,11 @@ router.get("/auth/twitch", passport.authenticate("twitch"));
 router.get(
   "/auth/twitch/callback",
   passport.authenticate("twitch", {
-    failureRedirect: "http://localhost:5173/",
+    failureRedirect: process.env["FAILURE_REDIRECT"] || "http://localhost:5173/",
   }),
   async (ctx) => {
     // TODO - eventually redirect to either register or home page
-    ctx.redirect("http://localhost:5173/");
+    ctx.redirect(process.env["REDIRECT_URL"] || "http://localhost:5173/");
   }
 );
 
@@ -45,11 +45,11 @@ router.get(
 router.get(
   "/auth/spotify/callback",
   passport.authenticate("spotify", {
-    failureRedirect: "http://localhost:5173/",
+    failureRedirect: process.env["FAILURE_REDIRECT"] || "http://localhost:5173/",
   }),
   async (ctx) => {
     // TODO - eventually redirect to either register or home page
-    ctx.redirect("http://localhost:5173/");
+    ctx.redirect(process.env["REDIRECT_URL"] || "http://localhost:5173/");
   }
 );
 
@@ -72,11 +72,11 @@ router.get("/auth/instagram", passport.authenticate("instagram"));
 router.get(
   "/auth/instagram/callback",
   passport.authenticate("instagram", {
-    failureRedirect: "http://localhost:5173/",
+    failureRedirect: process.env["FAILURE_REDIRECT"] || "http://localhost:5173/",
   }),
   async (ctx) => {
     // TODO - eventually redirect to either register or home page
-    ctx.redirect("http://localhost:5173/");
+    ctx.redirect(process.env["REDIRECT_URL"] || "http://localhost:5173/");
   }
 );
 
