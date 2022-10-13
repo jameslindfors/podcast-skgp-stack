@@ -1,16 +1,14 @@
 <script>
 	import { createClient, setContextClient } from '@urql/svelte';
 
-	const client = createClient({
-		url: 'https://project-water-circuit.live/graphql',
-		fetchOptions: {
-			mode: 'no-cors'
-		}
-	});
+	// const client = createClient({
+	// 	url: 'http://localhost:4000/graphql',
+	// 	fetchOptions: {
+	// 		mode: 'no-cors'
+	// 	}
+	// });
 
-	setContextClient(client);
+	// setContextClient(client);
 </script>
 
-<main>
-	<slot />
-</main>
+<slot />
