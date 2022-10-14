@@ -1,9 +1,7 @@
 <script lang="ts">
-
 </script>
-<span>
-</span>
+
+<span />
 
 <style>
-
 </style>

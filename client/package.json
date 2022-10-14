@@ -35,6 +35,7 @@
 	"dependencies": {
 		"@urql/svelte": "^3.0.1",
 		"bulma": "^0.9.4",
+		"contactjs": "^2.1.3",
 		"graphql": "^16.6.0"
 	}
 }

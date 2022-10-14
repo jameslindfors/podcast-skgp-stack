@@ -2,12 +2,6 @@
 	import { tick } from 'svelte';
 	import { onMount } from 'svelte';
 
-	const timeSinceMidnight = () => {
-		const now = new Date();
-		const midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0);
-		return now.getTime() - midnight.getTime();
-	};
-
 	const timeUntilMidnight = () => {
 		const now = new Date();
 		const midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59);
@@ -53,4 +47,13 @@
 	$: formattedTime = format(time);
 </script>
 
-{formattedTime}
+<span>{formattedTime} left to post</span>
+
+<style>
+	span {
+		margin-top: 0;
+		padding-top: 0;
+		font-weight: bold;
+		font-size: 1.2rem;
+	}
+</style>
