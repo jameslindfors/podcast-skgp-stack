@@ -2,66 +2,101 @@
 	import { onMount } from 'svelte';
 	import Card from './card.svelte';
 	import { PointerListener, Pan } from 'contactjs';
+	import _ from 'lodash';
 
 	// Eventually get this from a store
-	export let stack = [
+	let stack = [
 		{
-			content: 'Hello world'
+			id: 1,
+			title: 'Wow listen to thissss!!!',
+			caption: 'LOL this was so embarassing I cannot believe that this happened you need to hear!!',
+			profile:
+				'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png',
+			audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
+			author: '@josh',
+			bg: '#00416a'
+		},
+		{
+			id: 2,
+			title: "I'm so sorry",
+			caption: 'I am so sorry for what I did. I hope you can forgive me.',
+			profile:
+				'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png',
+			audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
+			author: '@sam25023',
+			bg: '#68c990'
+		},
+		{
+			id: 3,
+			title: 'I love you',
+			caption: 'I love you so much. I hope you know that.',
+			profile:
+				'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png',
+			audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
+			author: '@lucy123',
+			bg: '#d887fe'
 		}
 	];
 
-	let stackContainer: HTMLElement;
+	let param = 'id';
+	let cardContainer: HTMLSpanElement[] = [];
 	let pointerListener: PointerListener;
 	var panActive = false;
 
-	function onPan(event: unknown) {
-		console.log('pan', event);
+	const onPan = () => {
 		if (panActive == false) {
 			panActive = true;
-			console.log('pan active');
 		}
-	}
+	};
 
-	function onPanEnd(event: unknown) {
-		console.log('pan end', event);
+	const onPanEnd = () => {
 		if (panActive == true) {
 			panActive = false;
-			console.log('pan inactive');
 		}
-	}
+	};
 
-	function onSwipeLeft(event: unknown) {
-		console.log('swipe left');
-		onPanEnd(event);
-	}
-	function onSwipeRight(event: unknown) {
-		console.log('swipe right');
-		onPanEnd(event);
-	}
+	const onSwipeLeft = () => {
+		stack = stack.slice(1);
+		cardContainer = cardContainer.filter((el) => el != null);
+
+		onPanEnd();
+	};
 
 	onMount(() => {
+		listen();
+	});
+
+	const listen = () => {
 		const options = {
 			supportedGestures: [Pan]
 		};
 
-		pointerListener = new PointerListener(stackContainer, options);
-		stackContainer.addEventListener('pan', onPan);
-		stackContainer.addEventListener('swiperight', onSwipeRight);
-		stackContainer.addEventListener('swipeleft', onSwipeLeft);
+		cardContainer.forEach((card) => {
+			pointerListener = new PointerListener(card, options);
 
-		stackContainer.addEventListener('panend', function (event) {
-			// @ts-expect-error -- event is not defined
-			if (event.detail.recognizer.isSwipe == false) {
-				onPanEnd(event);
-			}
+			card.addEventListener('pan', onPan);
+			card.addEventListener('swipeleft', onSwipeLeft);
+
+			card.addEventListener('panend', function (event) {
+				// @ts-expect-error -- event is not defined
+				if (event.detail.recognizer.isSwipe == false) {
+					onPanEnd();
+				}
+			});
 		});
-	});
+	};
 </script>
 
-<ul bind:this={stackContainer}>
-	{#each stack as card, i}
-		<Card />
-	{/each}
+<ul>
+	{#if stack.length > 0}
+		{#each _.orderBy(stack, [param], ['desc']) as card, i}
+			<span bind:this={cardContainer[i]}>
+				<Card {card} />
+			</span>
+		{/each}
+	{:else}
+		<p>Uh oh... you've reach the end of the line. Nothing else to show for today.</p>
+	{/if}
 </ul>
 
 <style>
@@ -84,9 +119,20 @@
 		color: white;
 
 		overflow: hidden;
+		display: grid;
+	}
+	p {
+		color: black;
+		text-align: center;
+	}
+	span {
+		grid-column: 1;
+		grid-row: 1;
+		transition: top 0.2s ease-in-out, left 0.2s ease-in-out;
 
-		background: #00416a;
-		background: -webkit-linear-gradient(to bottom, #e4e5e6, #00416a);
-		background: linear-gradient(to bottom, #e4e5e6, #00416a);
+		height: 100%;
+		width: 100%;
+
+		overflow: hidden;
 	}
 </style>

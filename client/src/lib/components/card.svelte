@@ -1,28 +1,30 @@
-<script>
+<script lang="ts">
+	type CardType = {
+		title: string;
+		caption: string;
+		profile: string;
+		audio: string;
+		author: string;
+		bg: string;
+	};
+	export let card: CardType;
 </script>
 
-<li>
-	<h2 class="title">Wow listen to thissss!!!</h2>
+<li style={`background-color: ${card.bg}`}>
+	<h2 class="title">{card.title}</h2>
 	<div class="player">
 		<audio controls>
-			<source
-				src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
-				type="audio/mpeg"
-			/>
+			<source src={card.audio} type="audio/mpeg" />
 			Your browser does not support the audio element.
 		</audio>
 	</div>
 
 	<div class="lower">
 		<caption>
-			<span>LOL this was so embarassing I cannot believe that this happened you need to hear!!</span
-			>
+			<span>{card.caption}</span>
 		</caption>
 		<span>
-			<img
-				src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-				alt="profile"
-			/>
+			<img src={card.profile} alt="profile" />
 		</span>
 	</div>
 </li>
@@ -31,18 +33,27 @@
 	li {
 		display: flex;
 		flex-direction: column;
-		justify-content: space-around;
+		justify-content: center;
 		align-items: center;
 
-		height: 100%;
-		width: 100%;
+		height: auto;
+		width: auto;
+
+		padding: 1.5rem;
 
 		overflow: hidden;
+
+		border-radius: 5%;
+
+		/* background: #00416a;
+		background: -webkit-linear-gradient(to bottom, #e4e5e6, #00416a);
+		background: linear-gradient(to bottom, #e4e5e6, #00416a); */
 	}
 	h2 {
 		font-size: 1.5rem;
 		font-weight: 600;
 		margin: 0.2rem 0;
+		width: auto;
 		text-align: left;
 		margin-bottom: 6rem;
 	}
