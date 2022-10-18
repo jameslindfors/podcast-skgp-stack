@@ -1,11 +1,15 @@
-<a href="/record">
+<script lang="ts">
+	let recording = false;
+</script>
+
+<button name="recordlink">
 	<span class="inner-circle">
-		<span class="dot" />
+		<span class={!recording ? 'dot' : 'square'} />
 	</span>
-</a>
+</button>
 
 <style>
-	a {
+	button {
 		border: none;
 		border-radius: 50%;
 		height: 70px;
@@ -16,7 +20,7 @@
 		transition: all 0.2s ease-in-out;
 		background-color: rgb(222, 27, 27);
 	}
-	a:hover {
+	button:hover {
 		background-color: #c34949;
 	}
 	.inner-circle {
@@ -35,6 +39,14 @@
 		width: 3rem;
 		height: 3rem;
 		border-radius: 50%;
+		background-color: rgb(222, 27, 27);
+	}
+	.square {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 2.4rem;
+		height: 2.4rem;
 		background-color: rgb(222, 27, 27);
 	}
 </style>

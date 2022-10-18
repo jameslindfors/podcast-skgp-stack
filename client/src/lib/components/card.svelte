@@ -8,24 +8,62 @@
 		bg: string;
 	};
 	export let card: CardType;
+
+	const play = () => {
+		const audio = new Audio(card.audio);
+		audio.play();
+	};
+
+	let playing = false;
 </script>
 
 <li style={`background-color: ${card.bg}`}>
 	<h2 class="title">{card.title}</h2>
 	<div class="player">
-		<audio controls>
+		{#if !playing}
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				width="42"
+				height="42"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="2"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+				class="feather feather-play"><polygon points="5 3 19 12 5 21 5 3" /></svg
+			>
+		{:else}
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				width="42"
+				height="42"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="2"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+				class="feather feather-pause"
+				><rect x="6" y="4" width="4" height="16" /><rect x="14" y="4" width="4" height="16" /></svg
+			>
+		{/if}
+		<audio>
 			<source src={card.audio} type="audio/mpeg" />
 			Your browser does not support the audio element.
 		</audio>
 	</div>
 
 	<div class="lower">
-		<caption>
-			<span>{card.caption}</span>
-		</caption>
-		<span>
-			<img src={card.profile} alt="profile" />
-		</span>
+		<div class="text-container">
+			<p>{card.author}</p>
+			<caption>
+				<span
+					>{card.caption}
+					<img src={card.profile} alt="profile" />
+				</span>
+			</caption>
+		</div>
 	</div>
 </li>
 
@@ -33,47 +71,33 @@
 	li {
 		display: flex;
 		flex-direction: column;
-		justify-content: center;
+		justify-content: space-between;
 		align-items: center;
 
-		height: auto;
-		width: auto;
-
-		padding: 1.5rem;
+		height: 100%;
+		width: 100%;
 
 		overflow: hidden;
 
-		border-radius: 5%;
-
-		/* background: #00416a;
-		background: -webkit-linear-gradient(to bottom, #e4e5e6, #00416a);
-		background: linear-gradient(to bottom, #e4e5e6, #00416a); */
+		background: #00b4db;
+		background: -webkit-linear-gradient(to right, #0083b0, #00b4db);
+		background: linear-gradient(to right, #0083b0, #00b4db);
 	}
 	h2 {
 		font-size: 1.5rem;
 		font-weight: 600;
-		margin: 0.2rem 0;
-		width: auto;
 		text-align: left;
-		margin-bottom: 6rem;
-	}
-	audio {
-		width: 100%;
-		margin: 1rem 0;
 	}
 	caption {
-		width: 100%;
 		font-weight: 400;
 		margin: 0;
 		margin-right: 0.2rem;
-		align-self: flex-end;
 		font-size: medium;
 		text-align: left;
 	}
-	span {
+	caption span {
 		display: flex;
-		flex-direction: column;
-		justify-content: center;
+		flex-direction: row;
 		align-items: center;
 	}
 	img {
@@ -81,6 +105,7 @@
 		height: 4rem;
 		object-fit: inherit;
 		border-radius: 10rem;
+		box-shadow: 0 0 0 0.1rem rgba(255, 255, 255, 0.88);
 	}
 	.lower {
 		display: flex;
@@ -88,9 +113,20 @@
 		justify-content: space-between;
 		align-items: center;
 
+		margin: 1rem 1rem;
+	}
+	.text-container {
+		display: flex;
+		flex-direction: column;
+
 		width: 100%;
-		/* margin: 0.3rem 0; */
-		margin-top: 6rem;
+		margin: 0;
 		padding: 0;
+	}
+	.text-container p {
+		margin: 0;
+		padding-bottom: 0.2rem;
+		text-align: left;
+		color: rgb(197, 197, 197);
 	}
 </style>

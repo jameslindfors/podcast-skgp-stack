@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Recordbutton from '$lib/components/recordbutton.svelte';
 	import { onMount } from 'svelte';
 
 	let mediaRecorder: MediaRecorder;
@@ -117,67 +118,95 @@
 <svelte:head>
 	<title>{isRecording ? 'Recording...' : 'Record'}</title>
 </svelte:head>
+<main>
+	<header>
+		<a href="/">
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				width="32"
+				height="32"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="2"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+				class="feather feather-arrow-left"
+				><line x1="19" y1="12" x2="5" y2="12" /><polyline points="12 19 5 12 12 5" /></svg
+			>
+		</a>
+		<h1>Record</h1>
+	</header>
+	<section>
+		<div class="timeline"><h1>Timeline</h1></div>
+		<div class="timeremaining">
+			<h2>Time remaining 00:00</h2>
+		</div>
+	</section>
+	<footer>
+		<div class="audio-controls">controls</div>
+		<div class="record-button">
+			{#if isRecording}
+				<button on:click={stopRecording}>Stop</button>
+			{:else}
+				<Recordbutton />
+			{/if}
+		</div>
+		<div class="next-button">
+			{#if isRecording}
+				<button disabled>Next</button>
+			{:else}
+				<button>Next</button>
+			{/if}
+		</div>
+	</footer>
+</main>
 
-<div>
-	<button on:click={startRecording}>Start Recording</button>
-	<button on:click={stopRecording}>Stop Recording</button>
-	<button on:click={sendRecording}>Send Recording</button>
+<style>
+	main {
+		height: 100vh;
+		display: flex;
+		flex-direction: column;
+		/* justify-content: space-between; */
+		padding-top: 1rem;
+		padding-bottom: 4rem;
+		margin: 0 1rem;
+	}
+	header {
+		display: flex;
+		align-items: center;
+		justify-content: start;
 
-	<br />
+		height: auto;
+	}
+	header h1 {
+		height: auto;
+		margin: 0;
+	}
+	header a {
+		margin-right: 0.5rem;
+		color: black;
+	}
 
-	{#if isRecording}
-		<p>Recording...</p>
-	{:else}
-		<p>Not recording</p>
-	{/if}
+	.audio-controls {
+		position: absolute;
+		bottom: 1rem;
+		left: 1rem;
+	}
 
-	<br />
+	.record-button {
+		display: flex;
+		justify-content: center;
+		margin-bottom: 2rem;
+		position: fixed;
+		bottom: 0;
+		left: 0;
+		right: 0;
+	}
 
-	<audio bind:this={audio} controls controlslist="nodownload">
-		Audio not supported in your browser.
-	</audio>
-
-	<br />
-
-	{#if acceptedPermissions}
-		{#await getInputDevices()}
-			<p>loading...</p>
-		{:then devices}
-			<label for="input-device">Input Device:</label>
-			<select on:change={updateSelectedInputDevice} disabled={isRecording}>
-				{#each devices as device}
-					<option value={device.deviceId} selected={device.deviceId == currentInputDeviceId}
-						>{device.label}</option
-					>
-				{/each}
-			</select>
-		{/await}
-
-		<br />
-
-		{#await getOutputDevices()}
-			<p>loading...</p>
-		{:then devices}
-			<label for="output-device">Output Device:</label>
-			<select on:change={updateSelectedOutputDevice} disabled={isRecording}>
-				{#each devices as device}
-					<option value={device.deviceId} selected={device.deviceId == currentOutputDeviceId}
-						>{device.label}</option
-					>
-				{/each}
-			</select>
-		{/await}
-	{/if}
-
-	<br />
-
-	{#if returnedAudio}
-		<aside>
-			<p>Recorded Audio Passed Through Server</p>
-			<audio controls controlslist="nodownload">
-				<source src={returnedAudio} type="audio/ogg; codecs=opus" />
-				Audio not supported in your browser.
-			</audio>
-		</aside>
-	{/if}
-</div>
+	.next-button {
+		position: absolute;
+		bottom: 1rem;
+		right: 1rem;
+	}
+</style>

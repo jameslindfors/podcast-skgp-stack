@@ -17,8 +17,8 @@
 		return `${hours} hours ${minutes} minutes ${seconds} seconds`;
 	};
 
-	let intervalId: unknown;
-	let timeoutId: unknown;
+	let intervalId: string | number | NodeJS.Timeout;
+	let timeoutId: string | number | NodeJS.Timeout;
 
 	const start = () => {
 		intervalId = setInterval(() => {
@@ -51,9 +51,11 @@
 
 <style>
 	span {
-		margin-top: 0;
+		margin-top: 2rem;
 		padding-top: 0;
 		font-weight: bold;
 		font-size: 1.2rem;
+		text-shadow: 0 0 0.5rem rgba(91, 91, 91, 0.2);
+		text-rendering: optimizeLegibility;
 	}
 </style>

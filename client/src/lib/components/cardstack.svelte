@@ -18,8 +18,8 @@
 		},
 		{
 			id: 2,
-			title: "I'm so sorry",
-			caption: 'I am so sorry for what I did. I hope you can forgive me.',
+			title: "I'm so excited for this!",
+			caption: 'I cannot wait to see what happens next!',
 			profile:
 				'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png',
 			audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
@@ -28,8 +28,8 @@
 		},
 		{
 			id: 3,
-			title: 'I love you',
-			caption: 'I love you so much. I hope you know that.',
+			title: 'I love this song!',
+			caption: 'This song is so good I cannot believe it!',
 			profile:
 				'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png',
 			audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
@@ -102,19 +102,14 @@
 <style>
 	ul {
 		list-style: none;
-		padding: 1rem;
-		margin-top: 3.5rem;
-		margin-bottom: 0;
-
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
+		margin-top: 2rem;
+		margin-bottom: 1rem;
+		padding: 0;
 
 		border-radius: 1rem;
 
-		height: 55vh;
-		width: 85%;
+		height: 100%;
+		width: 93%;
 
 		color: white;
 
@@ -122,17 +117,17 @@
 		display: grid;
 	}
 	p {
+		display: flex;
+		justify-content: center;
+		align-items: center;
 		color: black;
 		text-align: center;
 	}
 	span {
+		margin: 0;
+		padding: 0;
 		grid-column: 1;
 		grid-row: 1;
 		transition: top 0.2s ease-in-out, left 0.2s ease-in-out;
-
-		height: 100%;
-		width: 100%;
-
-		overflow: hidden;
 	}
 </style>

@@ -1,23 +1,7 @@
 <script lang="ts">
-	// import { gql, queryStore, getContextClient } from '@urql/svelte';
 	import Countdown from '$lib/components/countdown.svelte';
 	import Cardstack from '$lib/components/cardstack.svelte';
 	import RecordButton from '$lib/components/recordbutton.svelte';
-
-	// let id = 1;
-	// const user = queryStore({
-	// 	client: getContextClient(),
-	// 	query: gql`
-	// 		query ($id: ID!) {
-	// 			user(id: $id) {
-	// 				id
-	// 				username
-	// 				post_allowed
-	// 			}
-	// 		}
-	// 	`,
-	// 	variables: { id }
-	// });
 </script>
 
 <svelte:head>
@@ -27,12 +11,30 @@
 
 <main>
 	<nav>
-		<a href="/profile">
+		<span class="search-container">
+			<button name="search">
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					width="32"
+					height="32"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					class="feather feather-search"
+					><circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" /></svg
+				>
+			</button>
+			<input type="text" name="search" id="search" placeholder="Search" />
+		</span>
+		<a href="/profile" name="profilelink">
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
-				width="42"
-				height="42"
-				viewBox="0 0 42 42"
+				width="32"
+				height="32"
+				viewBox="0 0 24 24"
 				fill="none"
 				stroke="currentColor"
 				stroke-width="2"
@@ -49,9 +51,29 @@
 	</section>
 
 	<footer>
-		<RecordButton />
+		<a href="/record">
+			<RecordButton />
+		</a>
 	</footer>
-	<span class="controls">controls</span>
+	<span class="notifications">
+		<a href="/notifications" name="notficationslink">
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				width="32"
+				height="32"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="2"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+				class="feather feather-bell"
+				><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" /><path
+					d="M13.73 21a2 2 0 0 1-3.46 0"
+				/></svg
+			>
+		</a>
+	</span>
 </main>
 
 <style>
@@ -71,6 +93,7 @@
 	}
 	main {
 		height: 100vh;
+		width: 100vw;
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
@@ -79,12 +102,40 @@
 	}
 	nav {
 		display: flex;
-		justify-content: flex-end;
-		padding-right: 1rem;
-		margin: 0;
-		height: 5%;
+		justify-content: space-between;
+		align-items: center;
+		padding: 0 1rem;
+	}
+	.search-container {
+		/* border: 1px solid #000; */
+		border-radius: 1.3rem;
+		padding: 0.2rem;
+		width: 84%;
+		height: 86%;
+		display: flex;
+		align-items: center;
+		box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.2);
+	}
+	.search-container button {
+		background: none;
+		border: none;
+		margin: 0 0.3rem;
+		padding: 0;
+	}
+	.search-container button svg {
+		color: rgba(58, 56, 56, 0.553);
+	}
+	.search-container input {
+		border: none;
+		width: 100%;
+		height: 90%;
+		border-radius: 1rem;
+		outline: none;
+		font-size: 1.2rem;
 	}
 	nav a {
+		margin: 0;
+		padding: 0;
 		text-decoration: none;
 		color: rgb(58, 56, 56);
 	}
@@ -92,15 +143,30 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
+		width: 100%;
+		height: 100%;
 	}
 	footer {
 		display: flex;
 		justify-content: center;
+		margin-top: 0.5rem;
 		margin-bottom: 3rem;
 	}
-	.controls {
+	footer a {
+		text-decoration: none;
+		margin: 0;
+		padding: 0;
+	}
+	.notifications {
 		position: absolute;
-		bottom: 1rem;
-		right: 1rem;
+		bottom: 3rem;
+		right: 3rem;
+		padding-right: 1rem;
+	}
+	.notifications a {
+		margin: 0;
+		padding: 0;
+		text-decoration: none;
+		color: rgb(58, 56, 56);
 	}
 </style>

@@ -2,6 +2,10 @@
 	"name": "Podcast SKGP Stack",
 	"short_name": "Podcast",
 	"start_url": "/",
+	"theme_color": "#eef6fa",
+	"background_color": "#eef6fa",
+	"display": "standalone",
+	"orientation": "portrait",
 	"icons": [
 		{
 			"src": "/android-chrome-192x192.png",
@@ -18,9 +22,5 @@
 			"sizes": "512x512",
 			"purpose": "maskable"
 		}
-	],
-	"theme_color": "#eef6fa",
-	"background_color": "#eef6fa",
-	"display": "standalone",
-	"orientation": "portrait"
+	]
 }
