@@ -37,12 +37,12 @@ app.use(passport.session());
 app.use(authRoutes.routes());
 
 app.use(async (ctx, next) => {
-  if (ctx.isAuthenticated()) {
-    mount("/graphql", gqlHttp);
-    await next();
-  } else {
-    ctx.throw(401, "Unauthorized");
-  }
+  // if (ctx.isAuthenticated()) {
+  mount("/graphql", gqlHttp);
+  await next();
+  // } else {
+  // ctx.throw(401, "Unauthorized");
+  // }
 });
 
 app.use(async (ctx) => {

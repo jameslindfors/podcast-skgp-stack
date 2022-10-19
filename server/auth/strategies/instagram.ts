@@ -6,8 +6,7 @@ export const instagram = new InstagramStrategy(
     clientID: process.env["INSTAGRAM_CLIENT_ID"],
     clientSecret: process.env["INSTAGRAM_CLIENT_SECRET"],
     callbackURL:
-      process.env["CALLBACK_URL"] + "auth/instagram./callback" ||
-      "http://localhost:4000/auth/magiclogin/callback",
+      "https://api.project-water-circuit.live/auth/instagram/callback",
   },
   async (
     accessToken: string,
