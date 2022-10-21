@@ -1,1 +1,2 @@
 [![CodeFactor](https://www.codefactor.io/repository/github/jameslindfors/podcast-skgp-stack/badge)](https://www.codefactor.io/repository/github/jameslindfors/podcast-skgp-stack)
+![Checkly](https://api.checklyhq.com/v1/badges/checks/993c38fa-76cb-4240-9790-53a63f83e9f1?style=flat-square&theme=default&responseTime=true)

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Recordbutton from '$lib/components/recordbutton.svelte';
+	import Recordingdisplay from '$lib/components/recordingdisplay.svelte';
 	import { onMount } from 'svelte';
 
 	let mediaRecorder: MediaRecorder;
@@ -138,7 +139,11 @@
 		<h1>Record</h1>
 	</header>
 	<section>
-		<div class="timeline"><h1>Timeline</h1></div>
+		<div class="timeline">
+			<Recordingdisplay
+				audio="audio"
+			/>
+		</div>
 		<div class="timeremaining">
 			<h2>Time remaining 00:00</h2>
 		</div>
