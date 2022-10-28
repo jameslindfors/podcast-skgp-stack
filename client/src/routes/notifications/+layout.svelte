@@ -23,18 +23,18 @@
 <slot />
 
 <style>
-    header {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
+	header {
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
 
-    height: auto;
-    width: auto;
-    padding: 1rem 0;
-    margin: 0 1rem;
-}
-header a {
-    margin-right: 0.5rem;
-    color: black;
-}
+		height: auto;
+		width: auto;
+		padding: 1rem 0;
+		margin: 0 1rem;
+	}
+	header a {
+		margin-right: 0.5rem;
+		color: black;
+	}
 </style>

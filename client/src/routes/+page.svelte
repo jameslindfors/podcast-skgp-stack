@@ -90,6 +90,7 @@
 		/* background-color: #eef6fa; */
 		color: rgb(58, 56, 56);
 		font-family: basic-sans, sans-serif;
+		font-display: swap;
 	}
 	main {
 		height: 100vh;

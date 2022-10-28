@@ -23,7 +23,7 @@
 <slot />
 
 <style>
-    	header {
+	header {
 		display: flex;
 		align-items: center;
 		justify-content: flex-start;

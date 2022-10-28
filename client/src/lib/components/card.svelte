@@ -9,11 +9,6 @@
 	};
 	export let card: CardType;
 
-	const play = () => {
-		const audio = new Audio(card.audio);
-		audio.play();
-	};
-
 	let playing = false;
 </script>
 
