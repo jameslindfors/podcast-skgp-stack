@@ -46,7 +46,6 @@
 		flex-direction: column;
 		margin: 0 1rem;
 	}
-
 	.audio-controls {
 		position: absolute;
 		bottom: 1rem;

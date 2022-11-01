@@ -87,10 +87,11 @@
 		padding: 0;
 		height: 100vh;
 		width: 100vw;
-		/* background-color: #eef6fa; */
+
 		color: rgb(58, 56, 56);
 		font-family: basic-sans, sans-serif;
 		font-display: swap;
+		overflow: hidden;
 	}
 	main {
 		height: 100vh;
