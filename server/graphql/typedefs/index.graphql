@@ -3,27 +3,10 @@ scalar Date
 type Query {
   user(id: ID!): User
   users: [User]
-
-  post(id: ID!): Post
-  posts: [Post]
-
-  responses(post_id: ID!): [Response]
-
-  refresh_token(id: ID!): refresh_token
 }
 
 type Mutation {
   createUser(input: CreateUserInput): User
   updateUser(id: ID!, input: UpdateUserInput): User
   deleteUser(id: ID!): User
-
-  createPost(input: CreatePostInput): Post
-  updatePost(id: ID!, input: UpdatePostInput): Post
-  deletePost(id: ID!): Post
-
-  uploadProfileImage(user_id: ID!, input: ImageInput): User
-
-  addResponseToPost(post_id: ID!, input: ResponseInput): Post
-
-  refresh_token(input: refresh_tokenInput): refresh_token
 }

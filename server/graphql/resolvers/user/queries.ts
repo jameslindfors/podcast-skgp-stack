@@ -12,9 +12,7 @@ const userQueries = {
   users: async () => {
     const users = await prisma.user.findMany({
       include: {
-        profile_img: true,
         token: true,
-        current_post: true,
       },
     });
     return users;
