@@ -19,7 +19,7 @@ router.get(
       process.env["FAILURE_REDIRECT"] || "http://localhost:5173/",
   }),
   async (ctx) => {
-    // TODO - eventually redirect to either register or home page
+    // TODO - eventually redirect to home page
     ctx.redirect("http://localhost:5173/");
   }
 );

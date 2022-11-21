@@ -6,10 +6,13 @@ datasource db {
 model User {
   id           Int     @id @default(autoincrement())
   username     String  @unique
+  profile_img  String
   post_allowed Boolean @default(false)
 
-  identifier_token String?         @unique
-  token            refresh_token[]
+  profile_identifier String?         @unique
+  access_token       String?         @unique
+  refresh_token      refresh_token[]
+  expires            Int
 
   followers Follows[] @relation("follower")
   following Follows[] @relation("following")
@@ -28,6 +31,7 @@ model Follows {
 }
 
 model refresh_token {
-  user_id Int  @unique
-  user    User @relation(fields: [user_id], references: [id])
+  user_id Int    @unique
+  user    User   @relation(fields: [user_id], references: [id])
+  token   String @unique
 }

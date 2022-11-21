@@ -18,21 +18,24 @@ generator dbml {
 }
 
 model meta {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id         Int      @id @default(autoincrement())
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 }
 
 model User {
-  id               Int             @id @default(autoincrement())
-  username         String          @unique
-  post_allowed     Boolean         @default(false)
-  identifier_token String?         @unique
-  token            refresh_token[] @relation(name: "UserTorefresh_token")
-  followers        Follows[]       @relation(name: "follower")
-  following        Follows[]       @relation(name: "following")
-  created_at       DateTime        @default(now())
-  updated_at       DateTime        @updatedAt
+  id                 Int             @id @default(autoincrement())
+  username           String          @unique
+  profile_img        String
+  post_allowed       Boolean         @default(false)
+  profile_identifier String?         @unique
+  access_token       String?         @unique
+  refresh_token      refresh_token[] @relation(name: "UserTorefresh_token")
+  expires            Int
+  followers          Follows[]       @relation(name: "follower")
+  following          Follows[]       @relation(name: "following")
+  created_at         DateTime        @default(now())
+  updated_at         DateTime        @updatedAt
 }
 
 model Follows {
@@ -45,6 +48,7 @@ model Follows {
 }
 
 model refresh_token {
-  user_id Int  @unique
-  user    User @relation(name: "UserTorefresh_token", fields: [user_id], references: [id])
+  user_id Int    @unique
+  user    User   @relation(name: "UserTorefresh_token", fields: [user_id], references: [id])
+  token   String @unique
 }

@@ -1,6 +1,8 @@
-// @ts-expect-error -- No types exist
+// @ts-expect-error No type definitions for this module
 import { Strategy as SpotifyStrategy } from "passport-spotify";
-// import { prisma } from "../../config/database";
+import { prisma } from "../../config/database";
+
+import type { Profile } from "./types";
 
 export const spotify = new SpotifyStrategy(
   {
@@ -8,16 +10,38 @@ export const spotify = new SpotifyStrategy(
     clientSecret: process.env["SPOTIFY_CLIENT_SECRET"] || "",
     callbackURL: "/auth/spotify/callback",
   },
-  (
+  async (
     accessToken: string,
     refreshToken: string,
-    expires_in: string,
-    profile: unknown,
-    done: unknown
+    expires_in: number,
+    profile: Profile,
+    done: any
   ) => {
-    console.log(profile);
-    // @ts-expect-error -- Unknown type
-    done(null, profile);
+    try {
+      await prisma.user.upsert({
+        where: {
+          profile_identifier: profile.id,
+        },
+        update: {},
+        create: {
+          profile_identifier: profile.id,
+          username: profile.displayName,
+          profile_img:
+            profile.photos[0] ||
+            "https://media.istockphoto.com/id/1223671392/vector/default-profile-picture-avatar-photo-placeholder-vector-illustration.jpg?s=612x612&w=0&k=20&c=s0aTdmT5aU6b8ot7VKm11DeID6NctRCpB755rA1BIP0=",
+          access_token: accessToken,
+          refresh_token: {
+            create: {
+              token: refreshToken,
+            },
+          },
+          expires: expires_in,
+        },
+      });
+      return done(null, profile);
+    } catch (err: unknown) {
+      return done(err);
+    }
   }
 );
 

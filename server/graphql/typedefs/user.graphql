@@ -1,6 +1,7 @@
 type User implements Timestamps {
   id: ID
   username: String!
+  profile_img: String
   post_allowed: Boolean!
 
   identifier_token: String
@@ -13,9 +14,11 @@ type User implements Timestamps {
 
 input CreateUserInput {
   username: String!
+  profile_img: String
 }
 
 input UpdateUserInput {
   username: String
+  profile_img: String
   post_allowed: Boolean
 }

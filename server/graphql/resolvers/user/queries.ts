@@ -11,9 +11,7 @@ const userQueries = {
   },
   users: async () => {
     const users = await prisma.user.findMany({
-      include: {
-        token: true,
-      },
+      include: {},
     });
     return users;
   },
