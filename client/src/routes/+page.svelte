@@ -1,7 +1,30 @@
 <script lang="ts">
-	import Countdown from '$lib/components/countdown.svelte';
-	import Cardstack from '$lib/components/cardstack.svelte';
-	import RecordButton from '$lib/components/recordbutton.svelte';
+	import { queryStore, gql, getContextClient } from '@urql/svelte';
+
+	// export let data;
+	let id = 1;
+
+	const user = queryStore({
+		client: getContextClient(),
+		query: gql`
+			query ($id: ID!) {
+				user(id: $id) {
+					id
+					username
+					profile_img
+					post_allowed
+					profile_identifier
+					access_token
+					expires
+					refresh_token {
+						user_id
+						token
+					}
+				}
+			}
+		`,
+		variables: { id }
+	});
 </script>
 
 <svelte:head>
@@ -45,35 +68,17 @@
 			>
 		</a>
 	</nav>
-	<section>
-		<Countdown />
-		<Cardstack />
-	</section>
-
-	<footer>
-		<a href="/record">
-			<RecordButton />
-		</a>
-	</footer>
-	<span class="notifications">
-		<a href="/notifications" name="notficationslink">
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				width="32"
-				height="32"
-				viewBox="0 0 24 24"
-				fill="none"
-				stroke="currentColor"
-				stroke-width="2"
-				stroke-linecap="round"
-				stroke-linejoin="round"
-				class="feather feather-bell"
-				><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" /><path
-					d="M13.73 21a2 2 0 0 1-3.46 0"
-				/></svg
-			>
-		</a>
-	</span>
+	<div>
+		<a href="http://localhost:4000/auth/spotify">Login with spotify</a>
+		{#if $user.fetching}
+			<p>Loading...</p>
+		{:else if $user.error}
+			<p>Oh no... {$user.error.message}</p>
+		{:else}
+			<img src={$user.data.user.profile_img} alt="profile" width="150" height="150" />
+			<h1>{$user.data.user.username}</h1>
+		{/if}
+	</div>
 </main>
 
 <style>
@@ -89,6 +94,7 @@
 		width: 100vw;
 
 		color: rgb(58, 56, 56);
+		background-color: blanchedalmond;
 		font-family: basic-sans, sans-serif;
 		font-display: swap;
 		overflow: hidden;
@@ -129,6 +135,7 @@
 	}
 	.search-container input {
 		border: none;
+		background: none;
 		width: 100%;
 		height: 90%;
 		border-radius: 1rem;
@@ -141,34 +148,15 @@
 		text-decoration: none;
 		color: rgb(58, 56, 56);
 	}
-	section {
+	div {
 		display: flex;
 		flex-direction: column;
-		align-items: center;
-		width: 100%;
 		height: 100%;
-	}
-	footer {
-		display: flex;
+		width: 100%;
+		align-items: center;
 		justify-content: center;
-		margin-top: 0.5rem;
-		margin-bottom: 3rem;
 	}
-	footer a {
-		text-decoration: none;
-		margin: 0;
-		padding: 0;
-	}
-	.notifications {
-		position: absolute;
-		bottom: 3rem;
-		right: 3rem;
-		padding-right: 1rem;
-	}
-	.notifications a {
-		margin: 0;
-		padding: 0;
-		text-decoration: none;
-		color: rgb(58, 56, 56);
+	img {
+		border-radius: 50%;
 	}
 </style>

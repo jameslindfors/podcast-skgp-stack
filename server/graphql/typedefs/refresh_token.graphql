@@ -1,0 +1,4 @@
+type refresh_token {
+  user_id: ID
+  token: String
+}

@@ -31,7 +31,7 @@ model Follows {
 }
 
 model refresh_token {
-  user_id Int    @unique
-  user    User   @relation(fields: [user_id], references: [id])
+  profile_identifier String   @unique
+  user    User   @relation(fields: [profile_identifier], references: [profile_identifier])
   token   String @unique
 }

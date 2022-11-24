@@ -7,7 +7,7 @@ const router = new Router();
 router.get(
   "/auth/spotify",
   passport.authenticate("spotify", {
-    scope: ["user-read-email"],
+    scope: ["user-read-email", "user-top-read"],
     showDialog: true,
   })
 );

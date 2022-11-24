@@ -22,7 +22,19 @@ export const spotify = new SpotifyStrategy(
         where: {
           profile_identifier: profile.id,
         },
-        update: {},
+        update: {
+          access_token: accessToken,
+          refresh_token: {
+            update: {
+              where: {
+                profile_identifier: profile.id,
+              },
+              data: {
+                token: refreshToken,
+              },
+            },
+          },
+        },
         create: {
           profile_identifier: profile.id,
           username: profile.displayName,

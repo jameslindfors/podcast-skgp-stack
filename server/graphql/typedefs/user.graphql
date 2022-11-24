@@ -4,8 +4,10 @@ type User implements Timestamps {
   profile_img: String
   post_allowed: Boolean!
 
-  identifier_token: String
-  token: [String]
+  profile_identifier: String
+  access_token: String
+  refresh_token: [refresh_token]
+  expires: Int
 
   # Interface required
   created_at: Date!

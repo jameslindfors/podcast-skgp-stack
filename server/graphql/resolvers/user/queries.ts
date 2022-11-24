@@ -6,6 +6,9 @@ const userQueries = {
       where: {
         id: parseInt(args.id),
       },
+      include: {
+        refresh_token: true,
+      },
     });
     return user;
   },
